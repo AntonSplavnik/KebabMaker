@@ -10,6 +10,7 @@ public class MakingProgress : MonoBehaviour
     public GameObject test;
     public Text nameText;
     public GameObject ready;
+    public AudioSource doneSound;
     public Vector2 offset;
     public float totalTimeToMakeSalad = 3f;
     private bool isCollision = false;
@@ -62,6 +63,7 @@ public class MakingProgress : MonoBehaviour
         }
         else if (isCollision)
         {
+            doneSound.Play();
             currentProgress = totalTimeToMakeSalad;
             isCollision = false;
             test.gameObject.SetActive(false);
