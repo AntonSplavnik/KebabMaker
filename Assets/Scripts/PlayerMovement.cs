@@ -29,22 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement != Vector2.zero)
         {
-            // Calculate the rotation angle based on the movement direction
-            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
-            // Create a rotation quaternion
-            Quaternion toRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            // Smoothly rotate towards the target rotation
+            float angle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
+            Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-            // float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
-            // rb.rotation = angle;
         }
-        
-        // rb.velocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed);
-        // Vector3 movementDirection = new Vector3(verticalInput, horizontalInput, 0f).normalized;
-        // if (movementDirection != Vector3.zero)
-        // {
-        //     float angle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg;
-        //     transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        // }
+
     }
 }
