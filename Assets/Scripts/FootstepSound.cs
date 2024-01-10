@@ -16,12 +16,12 @@ public class FootstepSound : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            PlayFootsep();
+            PlayFootstep();
         }
         else
             footstep.Stop();
     }
-    void    PlayFootsep()
+    void PlayFootstep()
     {
         if (!footstep.isPlaying)
         {
