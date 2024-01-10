@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Kebab Maker.sln"
+    "dotnet.defaultSolution": "Kebab-Maker.sln"
 }
