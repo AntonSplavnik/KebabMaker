@@ -9,7 +9,7 @@ public class NewPlayerMovement : MonoBehaviour
     private Vector2 _moveVector = Vector2.zero;
     private Rigidbody2D _rb = null;
     [SerializeField] float movementSpeed = 10f;
-
+    [SerializeField] float rotationSpeed = 5f;
 
     private void Awake()
     {
@@ -34,6 +34,13 @@ public class NewPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = _moveVector * movementSpeed;
+        
+        if (_moveVector != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(_moveVector.y, _moveVector.x) * Mathf.Rad2Deg;
+            Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext value)

@@ -585,9 +585,9 @@ GameObject:
   m_Component:
   - component: {fileID: 111204388}
   - component: {fileID: 111204387}
-  - component: {fileID: 111204386}
   - component: {fileID: 111204390}
   - component: {fileID: 111204389}
+  - component: {fileID: 111204391}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -595,19 +595,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &111204386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111204385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa74b898b98ed044c9b5ba6cf59e5385, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!212 &111204387
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -737,6 +724,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &111204391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111204385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200f976799e1741d7a21a499d9638340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!1 &159031013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,6 +2178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  rotationSpeed: 5
 --- !u!60 &573128927
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2403,8 +2404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e934c694a6f3f4a3d9ff473faa4605d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steerSpeed: 300
-  moveSpeed: 20
 --- !u!1 &637809886
 GameObject:
   m_ObjectHideFlags: 0
