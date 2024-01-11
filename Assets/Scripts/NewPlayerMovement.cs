@@ -1,4 +1,4 @@
-
+using TMPro;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,11 +8,17 @@ public class NewPlayerMovement : MonoBehaviour
     private Custominput _input = null;
     private Vector2 _moveVector = Vector2.zero;
     private Rigidbody2D _rb = null;
+    public TextMeshProUGUI textMeshProText;
+    public Vector2 orderOffset = new Vector2(1f, 1f);
+    private Vector3 targetPosition = new Vector3(20f, 0f, 0f);
+    [SerializeField] AudioSource audioSource;
     [SerializeField] float movementSpeed = 10f;
     [SerializeField] float rotationSpeed = 5f;
 
     private void Awake()
     {
+        //textMeshProText.transform.position = new Vector2(transform.position.x, transform.position.y) + orderOffset;
+        audioSource.Play();
         _input = new Custominput();
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -34,7 +40,9 @@ public class NewPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = _moveVector * movementSpeed;
-        
+        textMeshProText.transform.position = textMeshProText.transform.position + new Vector3(150f * Time.deltaTime, 0f, 0f);
+        if (textMeshProText.transform.position.x > 1200)
+            textMeshProText.transform.position = new Vector3(-150f, textMeshProText.transform.position.y, 0f);
         if (_moveVector != Vector2.zero)
         {
             float angle = Mathf.Atan2(_moveVector.y, _moveVector.x) * Mathf.Rad2Deg;
