@@ -6,8 +6,7 @@ public class CustomerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     private Vector3 direction = Vector3.left;
-
-    // Update is called once per frame
+    
     void Update()
     {
          transform.Translate(direction * moveSpeed * Time.deltaTime);
