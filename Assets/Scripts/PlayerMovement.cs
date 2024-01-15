@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         var movement = new Vector2(combinedHorizontalInput, combinedVerticalInput);
         movement.Normalize();
 
-        rb.position += movement * moveSpeed * Time.deltaTime;
+        rb.position += movement * (moveSpeed * Time.deltaTime);
 
         if (movement != Vector2.zero)
         {
@@ -39,15 +39,40 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
+
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             CalculateDistance();
+            CalculateAngle();
+        }
     }
 
-    void CalculateDistance()
+
+    private void CalculateDistance()
     {
-        double distance;
-    
-        distance = Math.Sqrt(Math.Pow((transform.position.x - goal.transform.position.x), 2) + Math.Pow((transform.position.y - goal.transform.position.y), 2));
+        var playerPosition = goal.transform.position;
+        var goalPosition = transform.position;
+        var distance = Math.Sqrt(Math.Pow((goalPosition.x - playerPosition.x), 2) + Math.Pow((goalPosition.y - playerPosition.y), 2));
         Debug.Log("distance " + distance);  
+    }
+
+    Vector3 Cross(Vector3 v, Vector3 w)
+    {
+        var crossProduct = new Vector3(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
+        return (crossProduct);
+    }
+    private void CalculateAngle()
+    {
+        // transform.up - upward direction
+        Vector3 playerForward = transform.up;
+        Vector3 goalDirection = goal.transform.position - transform.position;
+        var clockwise = 1;
+        
+        if (Cross(playerForward, goalDirection).z < 0)
+            clockwise = -1;
+        var dotProduct = playerForward.x * goalDirection.x + playerForward.y * goalDirection.y;
+        var angle = Mathf.Acos(dotProduct / (playerForward.magnitude * goalDirection.magnitude));
+        // angle * Mathf.Rad2Deg - converts the angle from radians to degrees
+        transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
     }
 }
