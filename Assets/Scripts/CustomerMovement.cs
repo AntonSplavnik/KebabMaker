@@ -5,21 +5,17 @@ using UnityEngine;
 public class CustomerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    private Vector3 direction = Vector3.left;
+    public GameObject goal;
+    Vector3 direction;
     
-    void Update()
+
+    void LateUpdate()
     {
-         transform.Translate(direction * moveSpeed * Time.deltaTime);
-    }
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if (coll.gameObject.CompareTag("Seat"))
-        {
-            moveSpeed = 0f;
-        }
-        else if (direction == Vector3.left)
-            direction = Vector3.right;
-        else
-            direction = Vector3.left;
+        // magnitude это гипотенуза (теорема пифагора) - так рассчитывается расстояние между векторами
+        // .normalized меняет координаты чтобы гипотенуза была равна 1. например (3, 0, 4) -> (0,6, 0, 08)
+        direction = goal.transform.position - transform.position;
+        transform.right = direction.normalized;
+        if (direction.magnitude > 0.5)
+            transform.position = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
     }
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -7,27 +7,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 5f;
     private Rigidbody2D rb;
+    public GameObject goal;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
         // Keyboard input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis("Vertical");
 
         // Joystick input
-        float joystickHorizontalInput = movementJoystick.Direction.x;
-        float joystickVerticalInput = movementJoystick.Direction.y;
+        var joystickHorizontalInput = movementJoystick.Direction.x;
+        var joystickVerticalInput = movementJoystick.Direction.y;
 
         // Combine keyboard and joystick inputs
-        float combinedHorizontalInput = Mathf.Abs(joystickHorizontalInput) > 0.1f ? joystickHorizontalInput : horizontalInput;
-        float combinedVerticalInput = Mathf.Abs(joystickVerticalInput) > 0.1f ? joystickVerticalInput : verticalInput;
+        var combinedHorizontalInput = Mathf.Abs(joystickHorizontalInput) > 0.1f ? joystickHorizontalInput : horizontalInput;
+        var combinedVerticalInput = Mathf.Abs(joystickVerticalInput) > 0.1f ? joystickVerticalInput : verticalInput;
 
-        Vector2 movement = new Vector2(combinedHorizontalInput, combinedVerticalInput);
+        var movement = new Vector2(combinedHorizontalInput, combinedVerticalInput);
         movement.Normalize();
 
         rb.position += movement * moveSpeed * Time.deltaTime;
@@ -38,5 +39,15 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+            CalculateDistance();
+    }
+
+    void CalculateDistance()
+    {
+        double distance;
+    
+        distance = Math.Sqrt(Math.Pow((transform.position.x - goal.transform.position.x), 2) + Math.Pow((transform.position.y - goal.transform.position.y), 2));
+        Debug.Log("distance " + distance);  
     }
 }
