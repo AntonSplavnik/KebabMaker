@@ -8,7 +8,6 @@ public class NewPlayerMovement : MonoBehaviour
     private Custominput _input = null;
     private Vector2 _moveVector = Vector2.zero;
     private Rigidbody2D _rb = null;
-    public GameObject sticker;
     private Vector3 targetPosition = new Vector3(20f, 0f, 0f);
     [SerializeField] AudioSource audioSource;
     [SerializeField] float movementSpeed = 10f;
@@ -39,9 +38,6 @@ public class NewPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = _moveVector * movementSpeed;
-        sticker.transform.position = sticker.transform.position + new Vector3(150f * Time.deltaTime, 0f, 0f);
-        if (sticker.transform.position.x > 1200)
-            sticker.transform.position = new Vector3(-150f, sticker.transform.position.y, 0f);
         if (_moveVector != Vector2.zero)
         {
             float angle = Mathf.Atan2(_moveVector.y, _moveVector.x) * Mathf.Rad2Deg;

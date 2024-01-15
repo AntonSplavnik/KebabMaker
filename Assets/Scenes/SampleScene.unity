@@ -671,6 +671,7 @@ GameObject:
   - component: {fileID: 74490430}
   - component: {fileID: 74490429}
   - component: {fileID: 74490428}
+  - component: {fileID: 74490432}
   m_Layer: 5
   m_Name: Order
   m_TagString: Untagged
@@ -761,6 +762,19 @@ RectTransform:
   m_AnchoredPosition: {x: 821, y: 1108}
   m_SizeDelta: {x: 1548, y: 841}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &74490432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74490427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff05ce67e8e047b8a25ff4ceb83945f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sticker: {fileID: 74490427}
 --- !u!1 &76712911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1762,7 @@ Transform:
   m_GameObject: {fileID: 339668596}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.44, y: 0.62, z: 8}
+  m_LocalPosition: {x: 2.44, y: 0.62, z: 10}
   m_LocalScale: {x: 0.47, y: 0.39, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4157,7 +4171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404b089ed2874949b272426fac7f9762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sticker: {fileID: 305873221}
   audioSource: {fileID: 1735976551}
   movementSpeed: 10
   rotationSpeed: 5

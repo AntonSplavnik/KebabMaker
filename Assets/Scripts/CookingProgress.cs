@@ -1,5 +1,4 @@
 using UnityEngine.UI;
-using System.Collections;
 using UnityEngine;
 
 public class MakingProgress : MonoBehaviour
@@ -13,8 +12,8 @@ public class MakingProgress : MonoBehaviour
     [SerializeField] AudioSource doneSound;
     [SerializeField] Vector2 offset;
     [SerializeField] float totalTimeToMakeSalad = 3f;
-    private bool isCollision = false;
-    private float currentProgress = 0f;
+    private bool _isCollision = false;
+    private float _currentProgress = 0f;
 
     // IEnumerator FadeOut()
     // {
@@ -42,42 +41,43 @@ public class MakingProgress : MonoBehaviour
     //     // Optionally, you can perform additional actions after the fade-out is complete
     //     Debug.Log("Fade-out complete!");
     // }
+    void Update()
+    {
+        switch (_isCollision)
+        {
+            case true when _currentProgress < totalTimeToMakeSalad:
+                _currentProgress = Mathf.Clamp(_currentProgress + Time.deltaTime, 0, totalTimeToMakeSalad); 
+                UpdateUI();
+                progressSlider.transform.position = new Vector2(playerTransform.position.x, playerTransform.position.y) + offset;
+                break;
+            case true:
+                doneSound.Play();
+                _currentProgress = totalTimeToMakeSalad;
+                _isCollision = false;
+                test.gameObject.SetActive(false);
+                //StartCoroutine(FadeOut());
+                ready.gameObject.SetActive(true);
+                _currentProgress = 0f;
+                UpdateUI();
+                break;
+        }
+    }
+    void UpdateUI()
+    {
+        float progressPercentage = _currentProgress / totalTimeToMakeSalad;
+        progressSlider.value = progressPercentage;
+        Debug.Log(progressPercentage);
+    }
     void OnCollisionEnter2D(Collision2D coll)
     {
-        isCollision = true;
+        _isCollision = true;
         test.gameObject.SetActive(true);
         nameText.text = food;
         UpdateUI();
     }
     void OnCollisionExit2D(Collision2D coll)
     {
-        isCollision = false;
-    }
-    void Update()
-    {
-        if (isCollision && currentProgress < totalTimeToMakeSalad)
-        {
-            currentProgress = Mathf.Clamp(currentProgress + Time.deltaTime, 0, totalTimeToMakeSalad); 
-            UpdateUI();
-            progressSlider.transform.position = new Vector2(playerTransform.position.x, playerTransform.position.y) + offset;
-        }
-        else if (isCollision)
-        {
-            doneSound.Play();
-            currentProgress = totalTimeToMakeSalad;
-            isCollision = false;
-            test.gameObject.SetActive(false);
-            //StartCoroutine(FadeOut());
-            ready.gameObject.SetActive(true);
-            currentProgress = 0f;
-            UpdateUI();
-        }
-    }
-
-    void UpdateUI()
-    {
-        float progressPercentage = currentProgress / totalTimeToMakeSalad;
-        progressSlider.value = progressPercentage;
-        Debug.Log(progressPercentage);
+        _isCollision = false;
     }
 }
+
