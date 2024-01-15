@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 5f;
     private Rigidbody2D rb;
-    public GameObject goal;
 
     private void Start()
     {
@@ -40,39 +39,39 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CalculateDistance();
-            CalculateAngle();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     CalculateDistance();
+        //     CalculateAngle();
+        // }
     }
 
 
-    private void CalculateDistance()
-    {
-        var playerPosition = goal.transform.position;
-        var goalPosition = transform.position;
-        var distance = Math.Sqrt(Math.Pow((goalPosition.x - playerPosition.x), 2) + Math.Pow((goalPosition.y - playerPosition.y), 2));
-        Debug.Log("distance " + distance);  
-    }
-
-    Vector3 Cross(Vector3 v, Vector3 w)
-    {
-        var crossProduct = new Vector3(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
-        return (crossProduct);
-    }
-    private void CalculateAngle()
-    {
-        // transform.up - upward direction
-        Vector3 playerForward = transform.up;
-        Vector3 goalDirection = goal.transform.position - transform.position;
-        var clockwise = 1;
-        
-        if (Cross(playerForward, goalDirection).z < 0)
-            clockwise = -1;
-        var dotProduct = playerForward.x * goalDirection.x + playerForward.y * goalDirection.y;
-        var angle = Mathf.Acos(dotProduct / (playerForward.magnitude * goalDirection.magnitude));
-        // angle * Mathf.Rad2Deg - converts the angle from radians to degrees
-        transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
-    }
+    // private void CalculateDistance()
+    // {
+    //     var playerPosition = goal.transform.position;
+    //     var goalPosition = transform.position;
+    //     var distance = Math.Sqrt(Math.Pow((goalPosition.x - playerPosition.x), 2) + Math.Pow((goalPosition.y - playerPosition.y), 2));
+    //     Debug.Log("distance " + distance);  
+    // }
+    //
+    // Vector3 Cross(Vector3 v, Vector3 w)
+    // {
+    //     var crossProduct = new Vector3(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
+    //     return (crossProduct);
+    // }
+    // void CalculateAngle()
+    // {
+    //     // transform.up - upward direction
+    //     Vector3 playerForward = transform.up;
+    //     Vector3 goalDirection = goal.transform.position - transform.position;
+    //     var clockwise = 1;
+    //     
+    //     if (Cross(playerForward, goalDirection).z < 0)
+    //         clockwise = -1;
+    //     var dotProduct = playerForward.x * goalDirection.x + playerForward.y * goalDirection.y;
+    //     var angle = Mathf.Acos(dotProduct / (playerForward.magnitude * goalDirection.magnitude));
+    //     // angle * Mathf.Rad2Deg - converts the angle from radians to degrees
+    //     transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
+    // }
 }
