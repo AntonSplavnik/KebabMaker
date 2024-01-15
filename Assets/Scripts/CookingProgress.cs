@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class MakingProgress : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] string food;
     [SerializeField] GameObject test;
-    [SerializeField] Text nameText;
+    [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject ready;
     [SerializeField] AudioSource doneSound;
     [SerializeField] Vector2 offset;
