@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,29 +8,29 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float rotationSpeed = 5f;
     private Rigidbody2D rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
         // Keyboard input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis("Vertical");
 
         // Joystick input
-        float joystickHorizontalInput = movementJoystick.Direction.x;
-        float joystickVerticalInput = movementJoystick.Direction.y;
+        var joystickHorizontalInput = movementJoystick.Direction.x;
+        var joystickVerticalInput = movementJoystick.Direction.y;
 
         // Combine keyboard and joystick inputs
-        float combinedHorizontalInput = Mathf.Abs(joystickHorizontalInput) > 0.1f ? joystickHorizontalInput : horizontalInput;
-        float combinedVerticalInput = Mathf.Abs(joystickVerticalInput) > 0.1f ? joystickVerticalInput : verticalInput;
+        var combinedHorizontalInput = Mathf.Abs(joystickHorizontalInput) > 0.1f ? joystickHorizontalInput : horizontalInput;
+        var combinedVerticalInput = Mathf.Abs(joystickVerticalInput) > 0.1f ? joystickVerticalInput : verticalInput;
 
-        Vector2 movement = new Vector2(combinedHorizontalInput, combinedVerticalInput);
+        var movement = new Vector2(combinedHorizontalInput, combinedVerticalInput);
         movement.Normalize();
 
-        rb.position += movement * moveSpeed * Time.deltaTime;
+        rb.position += movement * (moveSpeed * Time.deltaTime);
 
         if (movement != Vector2.zero)
         {
@@ -38,5 +38,40 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
+
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     CalculateDistance();
+        //     CalculateAngle();
+        // }
     }
+
+
+    // private void CalculateDistance()
+    // {
+    //     var playerPosition = goal.transform.position;
+    //     var goalPosition = transform.position;
+    //     var distance = Math.Sqrt(Math.Pow((goalPosition.x - playerPosition.x), 2) + Math.Pow((goalPosition.y - playerPosition.y), 2));
+    //     Debug.Log("distance " + distance);  
+    // }
+    //
+    // Vector3 Cross(Vector3 v, Vector3 w)
+    // {
+    //     var crossProduct = new Vector3(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
+    //     return (crossProduct);
+    // }
+    // void CalculateAngle()
+    // {
+    //     // transform.up - upward direction
+    //     Vector3 playerForward = transform.up;
+    //     Vector3 goalDirection = goal.transform.position - transform.position;
+    //     var clockwise = 1;
+    //     
+    //     if (Cross(playerForward, goalDirection).z < 0)
+    //         clockwise = -1;
+    //     var dotProduct = playerForward.x * goalDirection.x + playerForward.y * goalDirection.y;
+    //     var angle = Mathf.Acos(dotProduct / (playerForward.magnitude * goalDirection.magnitude));
+    //     // angle * Mathf.Rad2Deg - converts the angle from radians to degrees
+    //     transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
+    // }
 }
