@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MakingProgress : MonoBehaviour
 {
-    public Slider progressSlider;
-    public Transform playerTransform;
-    public string food;
-    public GameObject test;
-    public Text nameText;
-    public GameObject ready;
-    public AudioSource doneSound;
-    public Vector2 offset;
-    public float totalTimeToMakeSalad = 3f;
+    [SerializeField] Slider progressSlider;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] string food;
+    [SerializeField] GameObject test;
+    [SerializeField] Text nameText;
+    [SerializeField] GameObject ready;
+    [SerializeField] AudioSource doneSound;
+    [SerializeField] Vector2 offset;
+    [SerializeField] float totalTimeToMakeSalad = 3f;
     private bool isCollision = false;
     private float currentProgress = 0f;
 
