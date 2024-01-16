@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/CustomerMovement.cs.meta
+guid: 200f976799e1741d7a21a499d9638340
+========
+guid: e934c694a6f3f4a3d9ff473faa4605d1
+>>>>>>>> d633bfb9b875d616164a65ed2703fb642506f5b5:Assets/Scripts/Driver.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
