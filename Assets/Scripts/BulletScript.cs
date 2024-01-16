@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed = 5f;
-    public float mass = 10f;
-    public float force = 1000;
+    private float speed = 5f;
+    private float mass = 1;
+    private float force = 1;
     private float acceleration;
-    
+    private Vector3 bulletDirection; 
     // Start is called before the first frame update
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        Vector3 bulletDirection = transform.up;
+        bulletDirection =  transform.up;
         acceleration = force / mass;
-        speed += acceleration * Time.deltaTime;
+        speed += acceleration * 1;
+    }
+    void LateUpdate()
+    {
         transform.Translate(bulletDirection * speed * Time.deltaTime, Space.World);
     }
 }

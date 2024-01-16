@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(bullet, gun.position, gun.rotation);
-            Debug.Log("hello");
+            GameObject newBullet = Instantiate(bullet, gun.position, gun.rotation);
+            Destroy(newBullet, 0.5f);
         }
     }
 
