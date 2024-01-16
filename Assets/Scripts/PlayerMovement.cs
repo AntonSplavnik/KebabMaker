@@ -5,6 +5,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Joystick movementJoystick;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 5f;
+    public GameObject bullet;
+    public Transform gun;
     private Rigidbody2D rb;
 
     private void Start()
@@ -37,12 +39,11 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.Euler(0, 0, angle - 90f);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     CalculateDistance();
-        //     CalculateAngle();
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(bullet, gun.position, gun.rotation);
+            Debug.Log("hello");
+        }
     }
 
 
