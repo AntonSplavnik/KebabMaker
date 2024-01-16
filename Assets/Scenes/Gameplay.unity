@@ -3830,7 +3830,8 @@ Transform:
   m_LocalPosition: {x: -5.4445, y: -0.7582, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 972279749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &573128921
@@ -3848,8 +3849,8 @@ MonoBehaviour:
   movementJoystick: {fileID: 4808663381360527446}
   moveSpeed: 7
   rotationSpeed: 7
-  bullet: {fileID: 0}
-  gun: {fileID: 0}
+  bullet: {fileID: 651216972412890310, guid: f3a5776546386a640a99fc11dfdc99fe, type: 3}
+  gun: {fileID: 972279749}
 --- !u!50 &573128922
 Rigidbody2D:
   serializedVersion: 4
@@ -6023,6 +6024,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &972279748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 972279749}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &972279749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972279748}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.54, y: 3.58, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 573128920}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973715851
 GameObject:
   m_ObjectHideFlags: 0
@@ -7947,6 +7979,7 @@ GameObject:
   - component: {fileID: 1339793362}
   - component: {fileID: 1339793361}
   - component: {fileID: 1339793360}
+  - component: {fileID: 1339793363}
   m_Layer: 0
   m_Name: IMG_3686
   m_TagString: Untagged
@@ -8042,6 +8075,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180.95}
+--- !u!114 &1339793363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339793359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb4555f8811d4a588e583129955e4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customer: {fileID: 1339793359}
+  sittingCustomer: {fileID: 259596909}
 --- !u!1 &1344502447
 GameObject:
   m_ObjectHideFlags: 0
