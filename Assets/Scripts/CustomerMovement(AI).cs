@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class CustomerMovement : MonoBehaviour
 {
-    [SerializeField]
-    GameObject[] seats; //stores all seats in an array
+    [SerializeField] private List<SeatController> seats; //stores all seats in an array
 
     private void Start()
     {
@@ -18,11 +14,11 @@ public class CustomerMovement : MonoBehaviour
     private void FindEmptySeat()
     {
         //creates a list of all available seats
-        List<GameObject> emptySeats = new List<GameObject>();
-        foreach (GameObject seat in seats)
+        var emptySeats = new List<SeatController>();
+        foreach (var seat in seats)
         {
             //adds all empty seats to the list
-            if (seat.GetComponent<SeatController>().isOccupied == false)
+            if (seat.isOccupied == false)
             {
                 emptySeats.Add(seat);
             }
@@ -31,18 +27,18 @@ public class CustomerMovement : MonoBehaviour
         if (emptySeats.Count > 0)
         {
             //randomly selects a seats to sit at
-            int rand = Random.Range(0, emptySeats.Count);
-            Vector3 dest = emptySeats[rand].transform.position;
+            var rand = Random.Range(0, emptySeats.Count);
+            var dest = emptySeats[rand].transform.position;
             StartCoroutine(MoveToSeat(dest, emptySeats[rand]));
         }
     }
 
-    private IEnumerator MoveToSeat(Vector3 destination, GameObject seat)
+    private IEnumerator MoveToSeat(Vector3 destination, SeatController seat)
     {
-        float speed = 4.0f;
-        Vector3 direction = seat.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        var speed = 4.0f;
+        var direction = seat.transform.position - transform.position;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rotation; //calculates the rotation needed to face the targeted seat
         transform.Rotate(Vector3.forward, 90f);
         while (Vector3.Distance(transform.position, destination) > 0.1f)
@@ -52,11 +48,13 @@ public class CustomerMovement : MonoBehaviour
             yield return null;
             if (Vector3.Distance(transform.position, destination) < 1f)
             {
-                //positions the gameobject at the seat position and rotation
-                transform.position = seat.transform.position;
-                transform.rotation = seat.transform.rotation;
+                //positions the game object at the seat position and rotation
+                var transform1 = transform;
+                var transform2 = seat.transform;
+                transform1.position = transform2.position;
+                transform1.rotation = transform2.rotation;
                 transform.Rotate(Vector3.forward, -90f);
-                seat.GetComponent<SeatController>().OccupySeat();
+                seat.OccupySeat();
             }
         }
     }
