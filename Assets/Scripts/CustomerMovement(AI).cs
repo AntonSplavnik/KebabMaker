@@ -1,44 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class CustomerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public GameObject goal;
-    private Vector3 _direction;
-    
+    [SerializeField]
+    GameObject[] seats; //stores all seats in an array
 
-    private void LateUpdate()
+    private void Start()
     {
-        // magnitude это гипотенуза (теорема пифагора) - так рассчитывается расстояние между векторами
-        // .normalized меняет координаты чтобы гипотенуза была равна 1. например (3, 0, 4) -> (0.6, 0, 0.8)
-        _direction = goal.transform.position - transform.position;
-        //transform.right = direction.normalized;
-        if (_direction.magnitude > 0.5)
-            transform.position = transform.position + _direction.normalized * (moveSpeed * Time.deltaTime);
-        CalculateAngle();
+        FindEmptySeat();
     }
-    private void CalculateAngle()
+
+    private void FindEmptySeat()
     {
-        // transform.up - upward direction
-        var playerForward = transform.up;
-        var goalDirection = goal.transform.position - transform.position;
-        var clockwise = 1;
-        
-        if (Cross(playerForward, goalDirection).z < 0)
-            clockwise = -1;
-        var dotProduct = playerForward.x * goalDirection.x + playerForward.y * goalDirection.y;
-        var angle = Mathf.Acos(dotProduct / (playerForward.magnitude * goalDirection.magnitude));
-        // angle * Mathf.Rad2Deg - converts the angle from radians to degrees
-        if (float.IsNaN(angle))
-            return;
-        transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
+        //creates a list of all available seats
+        List<GameObject> emptySeats = new List<GameObject>();
+        foreach (GameObject seat in seats)
+        {
+            //adds all empty seats to the list
+            if (seat.GetComponent<SeatController>().isOccupied == false)
+            {
+                emptySeats.Add(seat);
+            }
+        }
+
+        if (emptySeats.Count > 0)
+        {
+            //randomly selects a seats to sit at
+            int rand = Random.Range(0, emptySeats.Count);
+            Vector3 dest = emptySeats[rand].transform.position;
+            StartCoroutine(MoveToSeat(dest, emptySeats[rand]));
+        }
     }
-    private static Vector3 Cross(Vector3 v, Vector3 w)
+
+    private IEnumerator MoveToSeat(Vector3 destination, GameObject seat)
     {
-        var crossProduct = new Vector3(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
-        return (crossProduct);
+        float speed = 4.0f;
+        Vector3 direction = seat.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = rotation; //calculates the rotation needed to face the targeted seat
+        transform.Rotate(Vector3.forward, 90f);
+        while (Vector3.Distance(transform.position, destination) > 0.1f)
+        { 
+            //moves towards the seat until it is in seat distance
+            transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            yield return null;
+            if (Vector3.Distance(transform.position, destination) < 1f)
+            {
+                //positions the gameobject at the seat position and rotation
+                transform.position = seat.transform.position;
+                transform.rotation = seat.transform.rotation;
+                transform.Rotate(Vector3.forward, -90f);
+                seat.GetComponent<SeatController>().OccupySeat();
+            }
+        }
     }
 }

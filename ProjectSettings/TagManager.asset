@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Salad
   - Seat
+  - emptySeat
   layers:
   - Default
   - TransparentFX
