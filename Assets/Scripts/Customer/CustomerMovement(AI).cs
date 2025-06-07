@@ -28,8 +28,14 @@ public class CustomerMovement : MonoBehaviour
         {
             //randomly selects a seats to sit at
             var rand = Random.Range(0, emptySeats.Count);
+            SeatController selectedSeat = emptySeats[rand];
+            selectedSeat.isOccupied = true; // Marking seat to avoid selection by others
             var dest = emptySeats[rand].transform.position;
             StartCoroutine(MoveToSeat(dest, emptySeats[rand]));
+        }
+        else
+        {
+            Debug.LogWarning("No empty seats available for the customer.");
         }
     }
 

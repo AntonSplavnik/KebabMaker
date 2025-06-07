@@ -18,6 +18,6 @@ public class BulletScript : MonoBehaviour
     }
     void LateUpdate()
     {
-        transform.Translate(bulletDirection * speed * Time.deltaTime, Space.World);
+        transform.Translate(bulletDirection * (speed * Time.deltaTime), Space.World);
     }
 }
